@@ -9,7 +9,7 @@ title: Chinese Money Plant
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-import { FMOscillator, FMSynth } from "tone";
+import { FMSynth } from "tone";
 
 
 
