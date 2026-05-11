@@ -16,6 +16,8 @@ Statuses:
 
 Status: `Ready`
 
+Story: [docs/stories/PETAL-001-scaffold-web-app.md](./docs/stories/PETAL-001-scaffold-web-app.md)
+
 Create the initial React, TypeScript, and Vite app.
 
 Acceptance criteria:
@@ -198,4 +200,3 @@ Acceptance criteria:
 - Template exists in `docs/stories/_template.md`
 - Template includes product goal, acceptance criteria, technical notes, and test plan
 - Agents can use it when expanding backlog items
-
