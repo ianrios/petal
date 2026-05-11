@@ -62,8 +62,9 @@ Backend:
 
 Hosting:
 
-- Vercel, Render, Fly.io, or Railway
-- Use the simplest deployment path that supports a frontend, API, and database
+- Vercel for the app and API
+- Supabase for hosted Postgres
+- Use the simplest deployment path that supports mobile testing early
 
 Data model:
 
@@ -80,6 +81,20 @@ Data model:
 5. Water changes plant health, tuning stability, and visual state.
 6. Repeated care unlocks a new leaf or minor feature.
 7. The user can share the plant.
+
+## Progression Model
+
+The first user state is intentionally small and mysterious: one visible leaf with a stem fading or blurring into the background where a pot will eventually appear.
+
+As the plant grows:
+
+1. A new leaf unlocks.
+2. The view zooms out slightly.
+3. More of the stem becomes visible.
+4. The pot is eventually revealed.
+5. Later growth reveals the shelf and multi-plant affordances.
+
+The interface can be mysterious because Ian is the first user and product tester. Frustration should be tuned through playtesting rather than over-explaining the UI upfront.
 
 ## MoSCoW Scope
 
@@ -216,6 +231,31 @@ Good learning targets:
 
 Avoid turning the MVP into a backend infrastructure project before the toy feels good.
 
+## Share And Fork Model
+
+Shared plants should fork instead of mutating the original.
+
+When someone opens a shared plant, they receive a cloned copy from that plant's shared version. The original owner can continue playing with their plant independently, and the recipient's care history diverges from that point.
+
+This should feel like a lightweight version of Git branches or budget scenario versions:
+
+- Original plant keeps its own timeline
+- Shared version becomes a history node
+- Recipient creates a fork from that node
+- Future backend versions can support pulling back or revisiting older plant versions
+
+## Time Model
+
+Plants should change based on real elapsed time.
+
+For MVP, use timestamp-based calculation on load and interaction instead of background jobs:
+
+- After a few minutes, the plant is only slightly different
+- After a day, the plant is meaningfully different
+- After a week, the plant is dramatically different
+
+This creates the feeling of a living plant while keeping the backend simple.
+
 ## First Technical Milestones
 
 1. Create Vite React TypeScript app.
@@ -229,12 +269,53 @@ Avoid turning the MVP into a backend infrastructure project before the toy feels
 9. Add a small backend save API.
 10. Write README and portfolio case-study notes.
 
-## Open Questions
+## Decisions
 
-- Should the proof of concept start with SVG, Canvas, or a DOM/CSS illustration?
-- Should backend persistence wait until after the mobile proof of concept?
-- What is the first unlock: new leaf, pot, shelf, or share link?
-- How mysterious should the UI be before it becomes frustrating?
-- Should the plant continue changing with real elapsed time, or only through user interaction?
-- Should shared plants be editable by anyone with the link, or only visitable/playable?
+- Start with SVG or DOM/SVG hybrid for the first plant; defer Canvas until interaction or rendering complexity requires it.
+- Backend persistence should wait until after the mobile proof of concept feels good.
+- The first unlock is a new leaf.
+- The pot is hidden at first and revealed through zoomed-out growth progression.
+- The shelf appears later after enough growth or after pot progression.
+- The UI can be mysterious and tuned through Ian's own playtesting.
+- Plants change with real elapsed time.
+- Shared plants fork into cloned copies instead of mutating the original.
+- The first proof of concept should use generated SVG React components, with plant geometry produced from seed data.
+- The first backend version should use a Vercel API layer in front of Supabase for saves, loads, and forks.
+- Early history nodes should be automatic only.
 
+## Tunable Defaults
+
+These are working defaults, not permanent rules.
+
+Rendering:
+
+- Use SVG React components for the plant.
+- Keep generation logic in `packages/core`.
+- Defer Canvas until SVG becomes limiting.
+- Defer Three.js until the small 3D flourish has a clear interaction need.
+
+Backend access:
+
+- Local proof of concept can be client-only.
+- First backend pass should use Vercel API routes.
+- Supabase direct client access can be used later for anonymous auth or real-time features if row-level security is clear.
+
+Elapsed time:
+
+- Minutes: slight posture, color, or tuning drift.
+- One day: visible hydration change and more audible tuning drift.
+- One week: dramatic dry or overgrown state.
+- Growth should come from both care and elapsed time, but neglect should shape the plant too.
+
+Pot effect:
+
+- First pot effect should be a gentle delay/reverb blend.
+- Delay gives rhythmic character.
+- Reverb gives peaceful plant-space character.
+- More exotic effects like chorus, ring modulation, wave folding, and saturation should come later through plant color or rare traits.
+
+History:
+
+- Automatically create history nodes for share, fork, new leaf, pot reveal, and shelf reveal.
+- Do not version every tap or water event.
+- Manual snapshots can be added later if the history UI becomes interesting.

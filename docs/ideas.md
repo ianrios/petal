@@ -56,3 +56,4 @@ libraries i think would be cool to learn
 - PixiJS
 - Paper.js
 - Two.js
+- https://github.com/WICG/html-in-canvas

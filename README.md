@@ -6,9 +6,12 @@ The project is designed as a portfolio piece for senior full-stack engineering: 
 
 ## Current Planning
 
-- [Raw ideas](./ideas.md)
+- [Raw ideas](./docs/ideas.md)
 - [MVP and MoSCoW scope](./docs/mvp.md)
 - [Agent-assisted build workflow](./docs/agent-workflow.md)
+- [Local development plan](./docs/development.md)
+- [Deployment plan](./docs/deployment.md)
+- [Backlog](./backlog.md)
 
 ## MVP Direction
 
