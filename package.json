@@ -10,13 +10,13 @@
   },
   "scripts": {
     "dev": "pnpm --filter @petal/web dev",
-    "build": "pnpm --filter @petal/web build",
-    "typecheck": "pnpm --filter @petal/web typecheck",
+    "build": "pnpm --filter @petal/core build && pnpm --filter @petal/web build",
+    "typecheck": "pnpm -r typecheck",
     "lint": "eslint .",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "test": "pnpm --filter @petal/web test",
-    "test:coverage": "pnpm --filter @petal/web test:coverage",
+    "test": "pnpm -r test",
+    "test:coverage": "pnpm -r test:coverage",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -27,7 +27,11 @@
       "eslint --fix"
     ]
   },
+  "dependencies": {
+    "seedrandom": "^3.0.5"
+  },
   "devDependencies": {
+    "@types/seedrandom": "^3.0.8",
     "@eslint/js": "^9.39.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",

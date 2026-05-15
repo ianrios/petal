@@ -19,7 +19,15 @@ const stylisticTypeCheckedConfigs = tseslint.configs.stylisticTypeChecked.map((c
 
 export default tseslint.config(
   {
-    ignores: ['apps/web/dist/**', 'apps/web/coverage/**', 'node_modules/**'],
+    ignores: [
+      'apps/web/dist/**',
+      'apps/web/coverage/**',
+      'packages/core/dist/**',
+      'packages/core/coverage/**',
+      'packages/core/**/*.test.ts',
+      'packages/core/vitest.config.ts',
+      'node_modules/**',
+    ],
   },
   js.configs.recommended,
   {
