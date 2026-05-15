@@ -1,6 +1,6 @@
 # PETAL-002: Deterministic Plant Seed
 
-Status: `Ready`
+Status: `Done`
 
 ## Product Goal
 

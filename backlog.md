@@ -10,7 +10,6 @@ Ordered by execution dependency. Agent scans top-to-bottom. Stories with linked 
 
 | ID        | Title                         | File |
 | --------- | ----------------------------- | ---- |
-| PETAL-002 | Deterministic Plant Seed      | –    |
 | PETAL-003 | First Leaf Instrument         | –    |
 | PETAL-004 | Hydration And Real-Time Drift | –    |
 | PETAL-009 | Local Persistence             | –    |
@@ -25,10 +24,11 @@ Ordered by execution dependency. Agent scans top-to-bottom. Stories with linked 
 
 ## Done
 
-| ID        | Title            | File                                                  |
-| --------- | ---------------- | ----------------------------------------------------- |
-| PETAL-001 | Scaffold Web App | [Story](./docs/stories/PETAL-001-scaffold-web-app.md) |
-| PETAL-014 | Story Template   | [Story](./docs/stories/PETAL-014-story-template.md)   |
+| ID        | Title                    | File                                                          |
+| --------- | ------------------------ | ------------------------------------------------------------- |
+| PETAL-001 | Scaffold Web App         | [Story](./docs/stories/PETAL-001-scaffold-web-app.md)         |
+| PETAL-002 | Deterministic Plant Seed | [Story](./docs/stories/PETAL-002-deterministic-plant-seed.md) |
+| PETAL-014 | Story Template           | [Story](./docs/stories/PETAL-014-story-template.md)           |
 
 ## Ideas
 
