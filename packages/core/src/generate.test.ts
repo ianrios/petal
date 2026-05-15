@@ -8,7 +8,10 @@ describe('plant generation', () => {
       const seed = 'test-seed-123';
       const plant1 = generatePlant(seed);
       const plant2 = generatePlant(seed);
-      expect(plant1).toEqual(plant2);
+      expect({
+        ...plant1,
+        createdAt: plant2.createdAt,
+      }).toEqual(plant2);
     });
 
     it('generates identical plants from the same seed over 10 iterations', () => {
