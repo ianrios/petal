@@ -14,7 +14,7 @@ As an agent, I want a well-structured story template with guidance for each sect
 
 ## Acceptance Criteria
 
-- Template file exists at `docs/stories/_template.md`
+- Template file exists at `.github/STORY_TEMPLATE.md`
 - Template includes all required sections: Product Goal, User Story, Acceptance Criteria, Technical Notes, Out Of Scope, Test Plan, Human Review Plan, Review Notes
 - Template provides example text or guidance for each section
 - Template is concise but complete (not overwhelming)
