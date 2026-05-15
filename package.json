@@ -1,43 +1,44 @@
 {
-  "name": "basic-plant-three",
-  "version": "0.1.0",
+  "name": "petal",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@react-three/drei": "^9.1.2",
-    "@react-three/fiber": "^8.0.9",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "5.0.0",
-    "styled-components": "^5.3.5",
-    "three": "^0.139.2",
-    "tone": "^14.7.77",
-    "web-vitals": "^2.1.4"
+  "type": "module",
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=24.15.0 <25",
+    "pnpm": ">=10.20.0 <11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "pnpm --filter @petal/web dev",
+    "build": "pnpm --filter @petal/web build",
+    "typecheck": "pnpm --filter @petal/web typecheck",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "pnpm --filter @petal/web test",
+    "test:coverage": "pnpm --filter @petal/web test:coverage",
+    "prepare": "husky"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "lint-staged": {
+    "*.{css,html,json,md,ts,tsx}": [
+      "prettier --write"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+    "*.{ts,tsx}": [
+      "eslint --fix"
     ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "eslint-plugin-testing-library": "^7.13.4",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.46.3"
   }
 }

@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Petal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Petal is a web-based plant tamagotchi and musical sound toy. Users grow a tiny generated plant, care for it over time, and play its leaves like a living instrument.
 
-## Available Scripts
+The project is designed as a portfolio piece for senior full-stack engineering: polished React/TypeScript UI, playful audio interaction, persistent state, shareable plant identities, and a backend architecture that can grow into multi-user behavior.
 
-In the project directory, you can run:
+## Current Planning
 
-### `npm start`
+- [Raw ideas](./docs/ideas.md)
+- [MVP and MoSCoW scope](./docs/mvp.md)
+- [Agent-assisted build workflow](./docs/agent-workflow.md)
+- [Local development plan](./docs/development.md)
+- [Deployment plan](./docs/deployment.md)
+- [Backlog](./backlog.md)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Local Setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Petal uses a `pnpm` workspace with the React/Vite app in `apps/web`.
 
-### `npm test`
+Prerequisites:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node `24.15.0` from `.nvmrc`
+- Corepack enabled
+- `pnpm` supplied by the root `packageManager` field
 
-### `npm run build`
+Install and run:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+nvm use
+corepack enable
+pnpm install
+pnpm dev
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The web dev server binds to `0.0.0.0` for local network testing. After `pnpm dev`
+starts, open the local Vite URL on this machine or the network URL on a phone on the
+same Wi-Fi network.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Quality gates:
 
-### `npm run eject`
+```sh
+pnpm build
+pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm test
+pnpm test:coverage
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Hooks:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Pre-commit runs `lint-staged` to format and lint staged files.
+- Pre-push runs the full local quality gate.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Agent And Review Workflow
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Agents can start local servers while working on a story, but a story is not done until
+Ian has had a chance to open the running app and review the product surface.
 
-## Learn More
+Preferred story loop:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Agent implements the story slice and runs the quality gates.
+2. Agent starts `pnpm dev` when there is something visual or interactive to review.
+3. Agent shares the local URL and network URL printed by Vite.
+4. Ian reviews the app on desktop and, when relevant, on a phone.
+5. Agent keeps the server running during review, makes requested changes, and reruns gates.
+6. Ian approves the behavior.
+7. Agent updates the story and backlog status to `Done`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Until human review happens, keep visual or interaction stories in `In Progress`, even if
+automated checks pass.
 
-### Code Splitting
+## MVP Direction
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The first proof of concept should run as a real deployed web app on mobile:
 
-### Analyzing the Bundle Size
+- Generate one seed-based plant
+- Tap leaves to trigger sound
+- Water the plant to affect health and tuning
+- Persist the plant locally or through a small backend
+- Share a plant link with another person
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Working Title
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Petal is the current working title.
