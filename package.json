@@ -1,0 +1,44 @@
+{
+  "name": "petal",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=24.15.0 <25",
+    "pnpm": ">=10.20.0 <11"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @petal/web dev",
+    "build": "pnpm --filter @petal/web build",
+    "typecheck": "pnpm --filter @petal/web typecheck",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "pnpm --filter @petal/web test",
+    "test:coverage": "pnpm --filter @petal/web test:coverage",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{css,html,json,md,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "eslint-plugin-testing-library": "^7.13.4",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.46.3"
+  }
+}

@@ -93,4 +93,3 @@ If Vercel functions become limiting, keep these as later options:
 - Supabase Edge Functions for colocated backend behavior
 
 Do not introduce these until the MVP proves it needs them.
-

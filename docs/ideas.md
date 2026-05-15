@@ -24,12 +24,13 @@ limit of 3 plants per shelf (for now)
 multi user interaction, seeded on first load of page, no login
 more ideas to come
 
-
 things i am really strong on:
+
 - react
 - typescript
 
 things im fuzzy on but have used in the past:
+
 - python
 - d3
 - maxmsp/pure data
@@ -37,11 +38,13 @@ things im fuzzy on but have used in the past:
 - haskell
 
 languages i think would be cool to learn
+
 - rust
 - distributed programming languages (Elixir, Scala, go)
 - zig
 
 libraries i think would be cool to learn
+
 - https://github.com/phaserjs/phaser
 - https://tonejs.github.io/
 - https://konvajs.org/

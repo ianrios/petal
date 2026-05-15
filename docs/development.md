@@ -85,6 +85,30 @@ vite --host 0.0.0.0
 
 The phone and Mac must be on the same network.
 
+## Agent-Run Servers
+
+During a story, the agent can start the dev server and keep it running for Ian's review.
+This is the preferred flow for UI, interaction, and audio work because it keeps the
+feedback loop focused on the running product instead of setup steps.
+
+Expected agent behavior:
+
+- Start `pnpm dev` when there is a visible or interactive change to inspect.
+- Confirm the local URL responds.
+- Share both the local URL and Vite network URL.
+- Leave the server running while Ian reviews.
+- Apply feedback with hot reload when practical.
+- Stop the server after the review loop unless Ian asks to keep it running.
+
+Expected human review:
+
+- Open the local URL on desktop.
+- Open the network URL on a phone when the story touches layout, touch, audio, or product feel.
+- Decide whether the story needs polish, revision, or can be accepted.
+
+For product-facing stories, passing tests and builds means the work is ready for review;
+it does not mean the story is done.
+
 ## Environment Variables
 
 Use `.env.local` for local secrets and never commit it.
@@ -116,4 +140,3 @@ When a plant is loaded:
 4. Save the updated state after user interaction or sync.
 
 This gives the feeling of a living plant without requiring cron jobs at the beginning.
-

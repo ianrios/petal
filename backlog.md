@@ -14,11 +14,18 @@ Statuses:
 
 ### PETAL-001: Scaffold Web App
 
-Status: `Ready`
+Status: `In Progress`
 
 Story: [docs/stories/PETAL-001-scaffold-web-app.md](./docs/stories/PETAL-001-scaffold-web-app.md)
 
 Create the initial React, TypeScript, and Vite app.
+
+Planning notes:
+
+- Use `pnpm`, Node 24 LTS, strict TypeScript, ESLint, Prettier, Vitest coverage, Husky, and lint-staged.
+- Use strict `80%` minimum coverage thresholds from the beginning.
+- Add a pre-push hook that runs the full non-interactive quality gate.
+- Keep Vercel deployment as a separate story; PETAL-001 only needs to remain deployable.
 
 Acceptance criteria:
 
@@ -200,3 +207,37 @@ Acceptance criteria:
 - Template exists in `docs/stories/_template.md`
 - Template includes product goal, acceptance criteria, technical notes, and test plan
 - Agents can use it when expanding backlog items
+
+### PETAL-015: Vercel Preview Deployment
+
+Status: `Idea`
+
+Deploy the scaffolded web app to Vercel so every change can be tested on a real mobile URL.
+
+Acceptance criteria:
+
+- Vercel project is connected to the repository
+- `develop` deploys to a preview or development environment
+- Production deployment path is documented
+- Required environment variable strategy is documented
+- README includes deployment notes
+- Phone testing through a deployed URL is possible
+
+### PETAL-016: Add Turborepo When Workspace Needs It
+
+Status: `Idea`
+
+Adopt Turborepo after the repo has enough packages or apps to benefit from task orchestration and caching.
+
+Acceptance criteria:
+
+- Existing `pnpm` workspace remains intact
+- `turbo.json` defines build, lint, test, typecheck, and coverage tasks
+- Root scripts delegate through Turbo
+- Local quality gates still pass
+- Documentation explains why Turbo was added
+
+## User ideas
+
+- add favicon
+- work on copy for app

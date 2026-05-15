@@ -26,6 +26,33 @@ Agents can own:
 - UI component variants
 - Research spikes
 
+## Server And Review Handoff
+
+Agents should be willing to run local servers for the current story. Ian should not need
+to manually start a server just to discover what changed, although he can take over the
+server whenever he wants.
+
+Default handoff for visual or interactive work:
+
+1. Agent starts the relevant dev server, usually `pnpm dev`.
+2. Agent confirms the app responds locally.
+3. Agent gives Ian the local URL and any network URL printed by the server.
+4. Agent leaves the server running while Ian reviews the behavior.
+5. Ian tests on desktop and phone as needed.
+6. Agent applies review feedback and reruns the quality gates.
+7. Agent stops the server when the review loop is finished, unless Ian asks to keep it running.
+
+Automated verification is necessary but not sufficient for product-facing stories. A story
+that changes UI, interaction, audio, plant behavior, or product feel should stay
+`In Progress` until Ian has reviewed the running app and approved the result.
+
+Status guidance:
+
+- `Ready`: The story has enough scope to start.
+- `In Progress`: An agent is implementing, validating, or waiting for Ian's review.
+- `Blocked`: The story cannot continue without a clearly documented decision, dependency, or fix.
+- `Done`: Quality gates pass and Ian has approved the running behavior.
+
 ## Recommended Build Rhythm
 
 Daily loop:
@@ -34,9 +61,11 @@ Daily loop:
 2. Write or update the acceptance criteria.
 3. Assign bounded implementation work to agents.
 4. Review diffs locally.
-5. Run the app on desktop and phone.
-6. Keep, revise, or revert based on product feel.
-7. Write a short dev log entry for future portfolio material.
+5. Have the agent start the app and share the local and network URLs.
+6. Run the app on desktop and phone.
+7. Keep, revise, or revert based on product feel.
+8. Mark the story done only after Ian review and passing quality gates.
+9. Write a short dev log entry for future portfolio material.
 
 Weekly loop:
 
@@ -119,12 +148,14 @@ Acceptance criteria:
 Before accepting agent work:
 
 - Does the app still run?
+- Did Ian get a URL to review the running app?
 - Does the interaction feel better, not just more complete?
 - Is the code easy to explain in an interview?
 - Did the change stay inside its assigned area?
 - Are names and concepts consistent with the product?
 - Is there at least one test for deterministic logic?
 - Does it work on a phone-sized viewport?
+- Has Ian approved the behavior before the story was marked `Done`?
 
 ## Portfolio Evidence To Capture
 
@@ -138,4 +169,3 @@ Save evidence as the project evolves:
 - Notes on agent-assisted implementation decisions
 - Bugs caught through review
 - Tradeoffs made to ship faster
-
