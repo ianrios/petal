@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { generatePlant, type Plant } from '@petal/core';
 import { Link } from 'react-router';
-import { usePersistence } from '../hooks/usePersistence';
+import { usePersistence, type StoredPlant } from '../hooks/usePersistence';
 import { usePlant } from '../hooks/usePlant';
 import '../styles/admin.css';
 
@@ -11,17 +11,53 @@ interface TestPlant {
   plant: Plant;
 }
 
+type TabType = 'collection' | 'current' | 'test';
+
 export function AdminDebugView() {
-  const [petalState] = usePersistence();
+  const [petalState, updateState] = usePersistence();
   const [testPlants, setTestPlants] = useState<TestPlant[]>([]);
   const [testSeed, setTestSeed] = useState('');
-  const [activeTab, setActiveTab] = useState<'current' | 'test'>('current');
+  const [activeTab, setActiveTab] = useState<TabType>('collection');
   const [selectedTestIndex, setSelectedTestIndex] = useState<number | null>(null);
 
   const currentStoredPlant = petalState.plants.find((p) => p.id === petalState.currentPlantId);
   const currentGeneratedPlant = usePlant(currentStoredPlant?.seed ?? '');
   const selectedTestPlant =
     selectedTestIndex !== null ? testPlants[selectedTestIndex]?.plant : null;
+
+  const generateNewStoredPlant = () => {
+    const newSeed = crypto.randomUUID();
+    const newPlant: StoredPlant = {
+      id: newSeed,
+      seed: newSeed,
+      createdAt: Date.now(),
+    };
+
+    const updatedPlants = [newPlant, ...petalState.plants];
+    updateState({
+      plants: updatedPlants,
+      currentPlantId: newPlant.id,
+    });
+  };
+
+  const setCurrentPlant = (plantId: string) => {
+    updateState({ currentPlantId: plantId });
+  };
+
+  const deletePlant = (plantId: string) => {
+    if (confirm('Delete this plant? This cannot be undone.')) {
+      const updatedPlants = petalState.plants.filter((p) => p.id !== plantId);
+      const newCurrentId =
+        petalState.currentPlantId === plantId
+          ? (updatedPlants[0]?.id ?? crypto.randomUUID())
+          : petalState.currentPlantId;
+
+      updateState({
+        plants: updatedPlants,
+        currentPlantId: newCurrentId,
+      });
+    }
+  };
 
   const generateTestPlant = () => {
     const seed = testSeed || crypto.randomUUID();
@@ -46,20 +82,11 @@ export function AdminDebugView() {
     }
   };
 
-  const clearAllStorage = () => {
-    if (
-      confirm(
-        'Clear all Petal storage data? (user ID, shelf ID, plants)\n\nThis cannot be undone. Refresh the page after clearing.',
-      )
-    ) {
-      localStorage.removeItem('petal_user_id');
-      localStorage.removeItem('petal_shelf_id');
-      localStorage.removeItem('petal_current_plant_id');
-      localStorage.removeItem('petal_plants');
+  const clearTestHistory = () => {
+    if (confirm('Clear test plant history? Your stored plants will not be affected.')) {
       setTestPlants([]);
       setTestSeed('');
       setSelectedTestIndex(null);
-      alert('Storage cleared. Refresh the page to generate new UUIDs.');
     }
   };
 
@@ -75,12 +102,20 @@ export function AdminDebugView() {
       <main className="admin-main">
         <div className="admin-tabs">
           <button
+            className={`admin-tab ${activeTab === 'collection' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab('collection');
+            }}
+          >
+            Plant Collection
+          </button>
+          <button
             className={`admin-tab ${activeTab === 'current' ? 'active' : ''}`}
             onClick={() => {
               setActiveTab('current');
             }}
           >
-            Your Current Plant
+            Current Plant Details
           </button>
           <button
             className={`admin-tab ${activeTab === 'test' ? 'active' : ''}`}
@@ -91,13 +126,78 @@ export function AdminDebugView() {
             Test Seeds
           </button>
           <button
-            onClick={clearAllStorage}
+            onClick={clearTestHistory}
             className="admin-clear-btn"
-            title="Clear all localStorage data for testing"
+            title="Clear test plant history (stored plants unaffected)"
           >
-            🗑️ Clear All Storage
+            🗑️ Clear Test History
           </button>
         </div>
+
+        {activeTab === 'collection' && (
+          <section className="admin-collection">
+            <h2>Plant Collection</h2>
+            <button
+              onClick={generateNewStoredPlant}
+              className="admin-generate-btn"
+              style={{ marginBottom: '1.5rem' }}
+            >
+              ➕ Generate New Plant
+            </button>
+
+            {petalState.plants.length > 0 ? (
+              <div className="plants-list">
+                {petalState.plants.map((plant) => (
+                  <div
+                    key={plant.id}
+                    className={`plant-item ${plant.id === petalState.currentPlantId ? 'current' : ''}`}
+                  >
+                    <div className="plant-item-info">
+                      <div className="plant-item-id">
+                        <strong>ID:</strong> <code>{plant.id.slice(0, 12)}...</code>
+                      </div>
+                      <div className="plant-item-seed">
+                        <strong>Seed:</strong> <code>{plant.seed.slice(0, 12)}...</code>
+                      </div>
+                      <div className="plant-item-created">
+                        <strong>Created:</strong> {new Date(plant.createdAt).toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="plant-item-actions">
+                      {plant.id !== petalState.currentPlantId && (
+                        <button
+                          onClick={() => {
+                            setCurrentPlant(plant.id);
+                          }}
+                          className="plant-action-btn"
+                        >
+                          Switch
+                        </button>
+                      )}
+                      {petalState.plants.length > 1 && (
+                        <button
+                          onClick={() => {
+                            deletePlant(plant.id);
+                          }}
+                          className="plant-action-btn plant-delete-btn"
+                        >
+                          Delete
+                        </button>
+                      )}
+                      {plant.id === petalState.currentPlantId && (
+                        <span className="plant-current-label">★ Current</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p style={{ color: '#909898', marginTop: '1rem' }}>
+                No plants yet. Generate one to get started.
+              </p>
+            )}
+          </section>
+        )}
 
         {activeTab === 'current' && (
           <section className="admin-current">
