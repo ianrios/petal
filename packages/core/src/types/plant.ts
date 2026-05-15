@@ -1,6 +1,7 @@
 export type LeafShape = 'round' | 'oval' | 'elongated' | 'pointy';
 export type GrowthPattern = 'tight_rosette' | 'loose' | 'trailing';
 export type PlantScale = 'small' | 'medium' | 'large';
+// TODO: make chromatic
 export type PitchClass = 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
 
 export interface Color {
