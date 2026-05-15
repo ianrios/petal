@@ -11,13 +11,13 @@ interface TestPlant {
   plant: Plant;
 }
 
-type TabType = 'collection' | 'current' | 'test';
+type TabType = 'account' | 'collection' | 'current' | 'test';
 
 export function AdminDebugView() {
   const [petalState, updateState] = usePersistence();
   const [testPlants, setTestPlants] = useState<TestPlant[]>([]);
   const [testSeed, setTestSeed] = useState('');
-  const [activeTab, setActiveTab] = useState<TabType>('collection');
+  const [activeTab, setActiveTab] = useState<TabType>('account');
   const [selectedTestIndex, setSelectedTestIndex] = useState<number | null>(null);
 
   const currentStoredPlant = petalState.plants.find((p) => p.id === petalState.currentPlantId);
@@ -102,6 +102,14 @@ export function AdminDebugView() {
       <main className="admin-main">
         <div className="admin-tabs">
           <button
+            className={`admin-tab ${activeTab === 'account' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab('account');
+            }}
+          >
+            Account
+          </button>
+          <button
             className={`admin-tab ${activeTab === 'collection' ? 'active' : ''}`}
             onClick={() => {
               setActiveTab('collection');
@@ -133,6 +141,26 @@ export function AdminDebugView() {
             🗑️ Clear Test History
           </button>
         </div>
+
+        {activeTab === 'account' && (
+          <section className="admin-account">
+            <h2>Your Account</h2>
+            <div className="details-grid">
+              <div className="detail-item">
+                <label htmlFor="user-id">User ID:</label>
+                <code id="user-id">{petalState.userId}</code>
+              </div>
+              <div className="detail-item">
+                <label htmlFor="shelf-id">Shelf ID:</label>
+                <code id="shelf-id">{petalState.shelfId}</code>
+              </div>
+              <div className="detail-item">
+                <label htmlFor="plants-count">Total Plants:</label>
+                <span id="plants-count">{String(petalState.plants.length)}</span>
+              </div>
+            </div>
+          </section>
+        )}
 
         {activeTab === 'collection' && (
           <section className="admin-collection">
@@ -201,22 +229,6 @@ export function AdminDebugView() {
 
         {activeTab === 'current' && (
           <section className="admin-current">
-            <h2>Your Account</h2>
-            <div className="details-grid">
-              <div className="detail-item">
-                <label htmlFor="user-id">User ID:</label>
-                <code id="user-id">{petalState.userId}</code>
-              </div>
-              <div className="detail-item">
-                <label htmlFor="shelf-id">Shelf ID:</label>
-                <code id="shelf-id">{petalState.shelfId}</code>
-              </div>
-              <div className="detail-item">
-                <label htmlFor="plants-count">Total Plants:</label>
-                <span id="plants-count">{String(petalState.plants.length)}</span>
-              </div>
-            </div>
-
             {currentStoredPlant && currentGeneratedPlant ? (
               <>
                 <h2>Current Plant (Stored)</h2>
