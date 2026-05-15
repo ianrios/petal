@@ -18,6 +18,7 @@ import type {
 const LEAF_SHAPES: readonly LeafShape[] = ['round', 'oval', 'elongated', 'pointy'];
 const GROWTH_PATTERNS: readonly GrowthPattern[] = ['tight_rosette', 'loose', 'trailing'];
 const PLANT_SCALES: readonly PlantScale[] = ['small', 'medium', 'large'];
+// TODO: make chromatic
 const PITCH_CLASSES: readonly PitchClass[] = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
 export function generatePlant(seed: string): Plant {
